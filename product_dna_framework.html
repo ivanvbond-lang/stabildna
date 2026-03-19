@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product DNA — Четирислойната инфраструктура на маркирането</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:   #0b0f1e;
+  --bg2:  #0f1428;
+  --bg3:  #151b35;
+  --bg4:  #1c2240;
+  --ink:  #eceaf4;
+  --ink2: #9b99b0;
+  --ink3: #5a5870;
+  --rule: rgba(236,234,244,.07);
+  --rule2:rgba(236,234,244,.12);
+  --accent:#eb3e17;
+  --c-purple:#7f77dd;
+  --c-blue:  #378add;
+  --c-green: #5da855;
+  --c-gray:  #888780;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans: 'Instrument Sans',system-ui,sans-serif;
+  --mono: 'DM Mono','Courier New',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(236,234,244,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0;}
+
+/* MASTHEAD */
+.masthead{position:relative;z-index:1;border-bottom:1px solid var(--rule2);padding:1.25rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;background:rgba(11,15,30,.9);backdrop-filter:blur(8px);}
+.masthead-left{display:flex;align-items:center;gap:16px;}
+.masthead-divider{width:1px;height:30px;background:var(--rule2);}
+.masthead-product{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink3);}
+.masthead-product span{color:var(--accent);}
+.masthead-meta{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.06em;text-align:right;}
+
+/* COVER */
+.cover{position:relative;z-index:1;padding:7rem 3rem 5rem;max-width:1100px;border-bottom:1px solid var(--rule2);overflow:hidden;}
+.cover::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(29,91,168,.18) 0%,transparent 65%);top:-200px;right:-100px;pointer-events:none;}
+.cover::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(235,62,23,.1) 0%,transparent 65%);bottom:0;left:5%;pointer-events:none;}
+.cover-kicker{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:1.5rem;position:relative;}
+.cover h1{font-family:var(--serif);font-size:clamp(44px,6.5vw,88px);line-height:.98;letter-spacing:-.02em;color:var(--ink);margin-bottom:1.5rem;position:relative;}
+.cover h1 em{font-style:italic;color:var(--accent);}
+.cover-lead{font-size:18px;font-weight:300;color:var(--ink2);max-width:680px;line-height:1.75;margin-bottom:2.5rem;position:relative;}
+.cover-thesis{background:var(--bg3);border:1px solid var(--rule2);border-left:3px solid var(--accent);padding:1.5rem 2rem;border-radius:0 6px 6px 0;max-width:700px;font-size:15px;font-weight:300;line-height:1.8;font-style:italic;color:var(--ink2);position:relative;}
+.cover-thesis strong{font-style:normal;font-weight:600;color:var(--ink);}
+
+/* DNA */
+.dna-intro{position:relative;z-index:1;padding:4rem 3rem;max-width:1100px;border-bottom:1px solid var(--rule2);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.dna-text h2{font-family:var(--serif);font-size:32px;line-height:1.15;margin-bottom:1rem;letter-spacing:-.01em;color:var(--ink);}
+.dna-text p{font-size:15px;color:var(--ink2);line-height:1.75;margin-bottom:1rem;}
+.dna-analogy{background:var(--bg3);border:1px solid var(--rule2);border-radius:10px;padding:1.5rem;border-top:3px solid var(--accent);}
+.dna-analogy-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink3);text-transform:uppercase;margin-bottom:1rem;}
+.dna-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule);}
+.dna-row:last-child{border-bottom:none;}
+.dna-from{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:500;min-width:70px;padding-top:2px;}
+.dna-arrow{color:var(--ink3);font-size:14px;padding-top:2px;}
+.dna-to{font-size:13px;color:var(--ink2);line-height:1.5;}
+
+/* LAYERS */
+.layer-section{border-bottom:1px solid var(--rule2);position:relative;z-index:1;}
+.layer-header-bar{padding:1.25rem 3rem;display:flex;align-items:center;gap:1.5rem;border-bottom:1px solid transparent;cursor:pointer;transition:background .2s;}
+.layer-header-bar:hover{background:rgba(236,234,244,.03);}
+.layer-section.open .layer-header-bar{border-bottom-color:var(--rule2);}
+.layer-number{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--ink3);min-width:28px;}
+.layer-title{font-family:var(--serif);font-size:22px;letter-spacing:-.01em;flex:1;color:var(--ink);}
+.layer-badge{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;}
+.layer-toggle{font-size:20px;color:var(--ink3);transition:transform .3s;user-select:none;line-height:1;}
+.layer-section.open .layer-toggle{transform:rotate(45deg);}
+.layer-body{display:none;padding:3rem;max-width:1100px;}
+.layer-section.open .layer-body{display:block;}
+.layer-body-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:2.5rem;}
+.layer-philosophy{font-family:var(--serif);font-size:19px;line-height:1.55;font-style:italic;border-left:2px solid;padding-left:1.5rem;margin-bottom:1.5rem;}
+.layer-technical-lead{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;font-family:var(--mono);margin-bottom:1rem;}
+.layer-desc{font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:1.25rem;}
+code{background:var(--bg4);padding:2px 7px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--c-blue);}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule2);border:1px solid var(--rule2);border-radius:8px;overflow:hidden;}
+.spec-cell{background:var(--bg2);padding:14px 16px;}
+.spec-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--ink3);text-transform:uppercase;margin-bottom:4px;}
+.spec-value{font-size:13px;color:var(--ink2);line-height:1.5;}
+.spec-value strong{font-weight:600;color:var(--ink);}
+.tech-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.5rem;}
+.tech-pill{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:4px;border:1px solid var(--rule2);color:var(--ink3);background:var(--bg3);}
+.key-insight{background:var(--bg3);border-radius:8px;padding:1.25rem 1.5rem;margin-top:2rem;border-left:3px solid;}
+.key-insight-label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+.key-insight-text{font-size:14px;color:var(--ink2);line-height:1.7;}
+
+/* OVERVIEW */
+.stack-overview{position:relative;z-index:1;padding:4rem 3rem;max-width:1100px;margin:0 auto;}
+.stack-overview h2{font-family:var(--serif);font-size:28px;margin-bottom:2rem;letter-spacing:-.01em;color:var(--ink);}
+.stack-diagram{display:flex;flex-direction:column;gap:2px;}
+.stack-row{display:grid;grid-template-columns:40px 210px 1fr auto;gap:0;align-items:stretch;overflow:hidden;}
+.stack-row:first-child{border-radius:10px 10px 0 0;}
+.stack-row:last-child{border-radius:0 0 10px 10px;}
+.stack-num{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;letter-spacing:.06em;opacity:.5;}
+.stack-name{padding:14px 16px;font-size:13px;font-weight:600;display:flex;align-items:center;border-right:1px solid rgba(0,0,0,.15);}
+.stack-desc{padding:14px 20px;font-size:12px;line-height:1.55;display:flex;align-items:center;}
+.stack-owner{padding:14px 16px;font-size:11px;font-family:var(--mono);display:flex;align-items:center;justify-content:flex-end;border-left:1px solid rgba(0,0,0,.12);min-width:130px;opacity:.65;}
+.stack-conn{height:16px;display:flex;align-items:center;justify-content:center;position:relative;}
+.stack-conn::before{content:'';position:absolute;left:50%;transform:translateX(-50%);width:1px;height:100%;background:var(--rule2);}
+.stack-conn-dot{width:6px;height:6px;border-radius:50%;position:relative;z-index:1;}
+.flow-meta{margin-top:1.5rem;display:flex;align-items:center;gap:16px;font-size:11px;color:var(--ink3);font-family:var(--mono);letter-spacing:.08em;}
+.flow-meta-line{flex:1;height:1px;background:var(--rule2);}
+
+/* CLOSING */
+.closing{position:relative;z-index:1;padding:5rem 3rem;border-top:1px solid var(--rule2);max-width:800px;}
+.closing h2{font-family:var(--serif);font-size:36px;line-height:1.1;letter-spacing:-.02em;margin-bottom:1.5rem;color:var(--ink);}
+.closing h2 em{font-style:italic;color:var(--accent);}
+.closing p{font-size:16px;color:var(--ink2);line-height:1.8;margin-bottom:1rem;max-width:640px;}
+.closing strong{color:var(--ink);font-weight:600;}
+.doc-footer{border-top:1px solid var(--rule2);padding:1.5rem 3rem;display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.04em;position:relative;z-index:1;}
+.doc-footer span{color:var(--accent);}
+
+@media(max-width:768px){
+  .masthead{padding:1rem 1.5rem;}
+  .cover{padding:3rem 1.5rem;}
+  .dna-intro{grid-template-columns:1fr;gap:2rem;padding:2.5rem 1.5rem;}
+  .layer-header-bar{padding:1rem 1.5rem;}
+  .layer-body{padding:2rem 1.5rem;}
+  .layer-body-grid{grid-template-columns:1fr;gap:2rem;}
+  .specs-grid{grid-template-columns:1fr;}
+  .stack-overview{padding:3rem 1.5rem;}
+  .stack-row{grid-template-columns:30px 1fr;}
+  .stack-desc,.stack-owner{display:none;}
+  .closing{padding:3rem 1.5rem;}
+  .doc-footer{padding:1.25rem 1.5rem;flex-direction:column;gap:.75rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-left">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 82.327" style="height:36px;width:auto;">
+      <g transform="translate(-73.059 -205.194)">
+        <g transform="translate(146.785 230.903)">
+          <path d="M239.057,274.037a1.008,1.008,0,0,1,.6-1.827,1,1,0,0,1,.633.194,5.337,5.337,0,0,0,3.444,1.265c1.336,0,2.179-.633,2.179-1.546v-.035c0-.879-.492-1.353-2.776-1.88-2.618-.633-4.094-1.406-4.094-3.673V266.5c0-2.108,1.757-3.567,4.2-3.567a6.764,6.764,0,0,1,3.9,1.142.975.975,0,0,1,.475.861,1,1,0,0,1-1.019,1,1.049,1.049,0,0,1-.562-.158,5.117,5.117,0,0,0-2.829-.932c-1.265,0-2,.651-2,1.458v.036c0,.948.562,1.371,2.934,1.932,2.6.633,3.936,1.564,3.936,3.6v.035c0,2.3-1.81,3.673-4.393,3.673A7.656,7.656,0,0,1,239.057,274.037Z" transform="translate(-238.635 -262.932)" fill="#fff"/>
+          <path d="M266.773,265.33h-2.987a1,1,0,0,1,0-2h8.171a1,1,0,0,1,0,2h-3v9.313a1.089,1.089,0,0,1-2.179,0Z" transform="translate(-252.031 -263.151)" fill="#fff"/>
+          <path d="M285.613,274l4.569-10.191a1.371,1.371,0,0,1,1.3-.879h.106a1.348,1.348,0,0,1,1.283.879L297.439,274a.941.941,0,0,1,.123.456,1.013,1.013,0,0,1-1.019,1.037,1.113,1.113,0,0,1-1.054-.756l-1-2.3h-5.974l-1.037,2.372a1.039,1.039,0,0,1-1,.685.99.99,0,0,1-1-1A1.106,1.106,0,0,1,285.613,274Zm8.048-3.479L291.5,265.55l-2.161,4.973Z" transform="translate(-264.617 -262.932)" fill="#fff"/>
+          <path d="M317.868,264.416a1.073,1.073,0,0,1,1.089-1.09h4.428a4.44,4.44,0,0,1,3.216,1.09,2.755,2.755,0,0,1,.826,2.038v.035a2.929,2.929,0,0,1-1.758,2.741c1.441.492,2.442,1.318,2.442,2.987v.035c0,2.2-1.81,3.374-4.551,3.374h-4.6a1.073,1.073,0,0,1-1.089-1.09Zm5.078,4.094c1.388,0,2.32-.545,2.32-1.669v-.036c0-.967-.773-1.564-2.161-1.564h-3.11v3.268Zm.633,5.2c1.476,0,2.372-.58,2.372-1.687v-.035c0-1.037-.826-1.652-2.53-1.652h-3.426v3.374Z" transform="translate(-282.588 -263.151)" fill="#fff"/>
+          <path d="M346.632,264.2a1.081,1.081,0,0,1,2.161,0v10.332a1.081,1.081,0,0,1-2.161,0Z" transform="translate(-298.544 -263.041)" fill="#fff"/>
+          <path d="M358.864,264.2a1.08,1.08,0,0,1,2.161,0v9.348H366.6a.984.984,0,1,1,0,1.968h-6.643a1.072,1.072,0,0,1-1.089-1.09Z" transform="translate(-305.329 -263.041)" fill="#fff"/>
+          <path d="M240.292,315.275V305.154a1.073,1.073,0,0,1,1.09-1.09h7.152a.975.975,0,0,1,.967.966.964.964,0,0,1-.967.967h-6.08v3.2h5.289a.979.979,0,0,1,.966.984.96.96,0,0,1-.966.949h-5.289v3.3h6.167a.975.975,0,0,1,.967.967.964.964,0,0,1-.967.966h-7.24A1.073,1.073,0,0,1,240.292,315.275Z" transform="translate(-239.554 -285.749)" fill="#fff"/>
+          <path d="M266.73,304.974a1.084,1.084,0,0,1,1.089-1.09h.228a1.362,1.362,0,0,1,1.125.632l6.15,7.961v-7.556a1.063,1.063,0,0,1,2.126,0v10.333a1.05,1.05,0,0,1-1.054,1.072h-.088a1.359,1.359,0,0,1-1.125-.65l-6.326-8.188v7.8a1.063,1.063,0,0,1-2.126,0Z" transform="translate(-254.22 -285.64)" fill="#fff"/>
+          <path d="M296.678,309.987v-.035a6.266,6.266,0,0,1,6.343-6.361,6.672,6.672,0,0,1,4.2,1.248,1.1,1.1,0,0,1,.439.879,1.076,1.076,0,0,1-1.072,1.072,1.135,1.135,0,0,1-.668-.246,4.675,4.675,0,0,0-2.987-.966,4.16,4.16,0,0,0-3.989,4.34v.035a4.108,4.108,0,0,0,4.182,4.393,5.024,5.024,0,0,0,2.97-.932v-2.3h-2.425a.945.945,0,0,1-.966-.931.96.96,0,0,1,.966-.949H307.1a1.073,1.073,0,0,1,1.09,1.09v3.286a1.494,1.494,0,0,1-.756,1.371,7.836,7.836,0,0,1-4.376,1.336A6.1,6.1,0,0,1,296.678,309.987Z" transform="translate(-270.833 -285.487)" fill="#fff"/>
+          <path d="M329.113,304.939a1.081,1.081,0,0,1,2.161,0v10.332a1.081,1.081,0,0,1-2.161,0Z" transform="translate(-288.826 -285.64)" fill="#fff"/>
+          <path d="M341.344,304.974a1.084,1.084,0,0,1,1.09-1.09h.228a1.361,1.361,0,0,1,1.124.632l6.151,7.961v-7.556a1.063,1.063,0,0,1,2.126,0v10.333a1.05,1.05,0,0,1-1.054,1.072h-.088a1.359,1.359,0,0,1-1.125-.65l-6.326-8.188v7.8a1.063,1.063,0,0,1-2.126,0Z" transform="translate(-295.611 -285.64)" fill="#fff"/>
+          <path d="M372.516,315.275V305.154a1.073,1.073,0,0,1,1.09-1.09h7.151a.975.975,0,0,1,.967.966.964.964,0,0,1-.967.967h-6.08v3.2h5.289a.979.979,0,0,1,.967.984.96.96,0,0,1-.967.949h-5.289v3.3h6.167a.975.975,0,0,1,.967.967.964.964,0,0,1-.967.966h-7.239A1.073,1.073,0,0,1,372.516,315.275Z" transform="translate(-312.903 -285.749)" fill="#fff"/>
+          <path d="M398.953,315.275V305.154a1.073,1.073,0,0,1,1.09-1.09h7.151a.975.975,0,0,1,.966.966.963.963,0,0,1-.966.967h-6.08v3.2H406.4a.979.979,0,0,1,.967.984.96.96,0,0,1-.967.949h-5.289v3.3h6.167a.975.975,0,0,1,.967.967.963.963,0,0,1-.967.966h-7.239A1.073,1.073,0,0,1,398.953,315.275Z" transform="translate(-327.568 -285.749)" fill="#fff"/>
+          <path d="M425.389,305.154a1.073,1.073,0,0,1,1.09-1.09h4.393a4.957,4.957,0,0,1,3.55,1.23,3.719,3.719,0,0,1,1.019,2.653v.035a3.64,3.64,0,0,1-2.794,3.673l2.355,2.97a1.251,1.251,0,0,1,.351.826,1.019,1.019,0,0,1-1.037,1,1.235,1.235,0,0,1-1.054-.562l-2.987-3.813h-2.723v3.3a1.081,1.081,0,0,1-2.162,0Zm5.325,5.008c1.546,0,2.53-.809,2.53-2.056v-.035c0-1.318-.949-2.038-2.548-2.038h-3.145v4.129Z" transform="translate(-342.233 -285.749)" fill="#fff"/>
+          <path d="M454.194,304.939a1.081,1.081,0,0,1,2.161,0v10.332a1.081,1.081,0,0,1-2.161,0Z" transform="translate(-358.212 -285.64)" fill="#fff"/>
+          <path d="M466.425,304.974a1.084,1.084,0,0,1,1.09-1.09h.228a1.36,1.36,0,0,1,1.124.632l6.151,7.961v-7.556a1.063,1.063,0,0,1,2.126,0v10.333a1.05,1.05,0,0,1-1.054,1.072H476a1.359,1.359,0,0,1-1.125-.65l-6.326-8.188v7.8a1.063,1.063,0,0,1-2.126,0Z" transform="translate(-364.997 -285.64)" fill="#fff"/>
+          <path d="M496.374,309.987v-.035a6.266,6.266,0,0,1,6.343-6.361,6.674,6.674,0,0,1,4.2,1.248,1.1,1.1,0,0,1,.439.879,1.076,1.076,0,0,1-1.072,1.072,1.136,1.136,0,0,1-.668-.246,4.674,4.674,0,0,0-2.987-.966,4.161,4.161,0,0,0-3.989,4.34v.035a4.109,4.109,0,0,0,4.182,4.393,5.024,5.024,0,0,0,2.97-.932v-2.3h-2.425a.945.945,0,0,1-.967-.931.96.96,0,0,1,.967-.949h3.426a1.073,1.073,0,0,1,1.09,1.09v3.286a1.493,1.493,0,0,1-.756,1.371,7.834,7.834,0,0,1-4.375,1.336A6.1,6.1,0,0,1,496.374,309.987Z" transform="translate(-381.61 -285.487)" fill="#fff"/>
+        </g>
+        <g transform="translate(73.058 205.194)">
+          <path d="M139.87,272.2,119.8,252.13l-.036,19.629,10.275,10.275Z" transform="translate(-98.966 -231.231)" fill="#1e247a"/>
+          <rect width="14.315" height="14.326" transform="translate(10.326 51.29) rotate(-45)" fill="#1a1c58"/>
+          <path d="M73.058,272.209l9.832,9.832,10.267-10.267-.047-19.617Z" transform="translate(-73.058 -231.246)" fill="#3d4797"/>
+          <g transform="translate(20.952 41.852)">
+            <path d="M186.917,319.249l-20.063-20.063-.036,19.629,10.256,10.256Z" transform="translate(-146.022 -299.186)" fill="#eb3e17"/>
+            <path d="M153.427,344.7,143.3,354.826l10.085,10.085,10.146-10.1Z" transform="translate(-132.978 -324.436)" fill="#e3001b"/>
+            <path d="M120.114,319.265l9.832,9.832,10.267-10.267-.047-19.617Z" transform="translate(-120.114 -299.201)" fill="#f77a0c"/>
+          </g>
+          <g transform="translate(20.953)">
+            <path d="M186.919,225.221l-20.1-20.027v19.593l10.267,10.267Z" transform="translate(-146.023 -205.194)" fill="#002e87"/>
+            <rect width="14.315" height="14.313" transform="translate(10.326 30.354) rotate(-45)" fill="#112261"/>
+            <path d="M120.115,225.25l9.832,9.832,10.267-10.267V205.246Z" transform="translate(-120.115 -205.223)" fill="#1d5ba8"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <div class="masthead-divider"></div>
+    <div class="masthead-product">Product <span>DNA</span> Framework</div>
+  </div>
+  <div class="masthead-meta">Версия 1.0 · 2025</div>
+</div>
+
+<div class="cover">
+  <div class="cover-kicker">Техническа документация · StabilID</div>
+  <h1>Дигиталното <em>ДНК</em><br>на продукта</h1>
+  <p class="cover-lead">Всеки физически продукт, напускащ производствената линия, носи в себе си уникална идентичност — вписана в материята, структурирана в код, изразена в дигиталното пространство и документирана за регулаторна проверка. Това е четирислойната инфраструктура, която прави това възможно.</p>
+  <div class="cover-thesis">
+    <strong>Централната теза:</strong> Епохата на анонимния продукт свършва. EU регулацията, GS1 стандартите и потребителското очакване за прозрачност конвергират към един извод — всяка физическа единица трябва да притежава верифицируема, динамична дигитална самоличност. Четирислойният модел е инфраструктурата, която прави това реалност.
+  </div>
+</div>
+
+<div class="dna-intro">
+  <div class="dna-text">
+    <h2>Защо ДНК<br>е точната аналогия</h2>
+    <p>ДНК не е просто информация — тя е информация, вписана в материята, изразявана чрез структура и четима от всяка клетка на организма. Продуктовото ДНК функционира по същия принцип.</p>
+    <p>Принтерът вписва кода в материята. Сериализационният двигател му дава уникална структура. Дигиталната платформа го прави четим и динамичен. Compliance слоят го прави верифицируем от всяка юрисдикция.</p>
+    <p>Разликата между стар баркод и модерен GS1 Digital Link е като разликата между фотография и жив организъм. Единият е снимка на момент. Другият расте, актуализира се и реагира.</p>
+  </div>
+  <div class="dna-analogy">
+    <div class="dna-analogy-title">Аналогия — биологично vs. продуктово ДНК</div>
+    <div class="dna-row"><div class="dna-from">Вписване</div><div class="dna-arrow">→</div><div class="dna-to">Рибозомата синтезира протеини по ДНК шаблона. Принтерът вписва уникален код в материята на всяка опаковка.</div></div>
+    <div class="dna-row"><div class="dna-from">Структура</div><div class="dna-arrow">→</div><div class="dna-to">Генетичният код е уникален за всеки организъм. Сериализацията гарантира, че никои два продукта в света не споделят идентичен код.</div></div>
+    <div class="dna-row"><div class="dna-from">Изразяване</div><div class="dna-arrow">→</div><div class="dna-to">ДНК се изразява като фенотип — видим, взаимодействащ с околната среда. Кодът се изразява като URL — видим, динамичен, свързан.</div></div>
+    <div class="dna-row"><div class="dna-from">Памет</div><div class="dna-arrow">→</div><div class="dna-to">ДНК пази еволюционната история. DPP пази продуктовата история — от суровини до рециклиране.</div></div>
+  </div>
+</div>
+
+<div class="layer-section" id="layer-04">
+  <div class="layer-header-bar" onclick="toggleLayer('layer-04')" style="border-left:3px solid #7f77dd;">
+    <div class="layer-number">04</div>
+    <div class="layer-title">Compliance Layer</div>
+    <div class="layer-badge" style="background:rgba(83,74,183,.2);color:#afa9ec;border:1px solid rgba(127,119,221,.25);">EU Regulatory</div>
+    <div class="layer-toggle">+</div>
+  </div>
+  <div class="layer-body">
+    <div class="layer-philosophy" style="border-color:#7f77dd;color:#afa9ec;">Продуктът вече не е анонимен обект. EU изисква всяка физическа единица да носи верифицируема, пълна документация на своя жизнен цикъл — от суровините до рециклирането. Digital Product Passport е регулаторният двойник на продукта.</div>
+    <div class="layer-body-grid">
+      <div>
+        <div class="layer-technical-lead">Техническа логика</div>
+        <div class="layer-desc">Digital Product Passport (DPP) е структуриран дигитален запис, свързан с уникалния идентификатор на продукта чрез GS1 Registry. За разлика от статичен сертификат, DPP е жив документ — актуализируем, верифицируем и четим от всяка EU юрисдикция. Архитектурата е построена върху GS1 Digital Link — стандарт, гарантиращ оперативна съвместимост. Всяко сканиране може да резолвира към различен "изглед" на паспорта в зависимост от ролята на четеца.</div>
+        <div class="specs-grid">
+          <div class="spec-cell"><div class="spec-label">Батерии и акумулатори</div><div class="spec-value"><strong>февруари 2027</strong> — задължителен DPP за промишлени и EV батерии</div></div>
+          <div class="spec-cell"><div class="spec-label">Текстил и облекло</div><div class="spec-value"><strong>2030</strong> — пълна документация за влакна, химикали, ремонтируемост</div></div>
+          <div class="spec-cell"><div class="spec-label">Строителни материали</div><div class="spec-value"><strong>2031</strong> — декларация за характеристики + Environmental Product Declaration</div></div>
+          <div class="spec-cell"><div class="spec-label">Електроника и ЕЕО</div><div class="spec-value"><strong>2031–2032</strong> — съдържание на критични суровини, ремонтируемост</div></div>
+        </div>
+        <div class="tech-pills"><span class="tech-pill">GS1 Digital Link</span><span class="tech-pill">EU Ecodesign Regulation</span><span class="tech-pill">DPP Registry API</span><span class="tech-pill">Verifiable Credentials</span><span class="tech-pill">Life cycle assessment</span></div>
+      </div>
+      <div>
+        <div class="layer-technical-lead">Какво съдържа DPP записът</div>
+        <div class="specs-grid">
+          <div class="spec-cell"><div class="spec-label">Произход на суровините</div><div class="spec-value">Географски произход, рециклирано съдържание, критични суровини</div></div>
+          <div class="spec-cell"><div class="spec-label">Въглероден отпечатък</div><div class="spec-value">CO₂ емисии по фази — производство, транспорт, употреба, край на живота</div></div>
+          <div class="spec-cell"><div class="spec-label">Химичен състав</div><div class="spec-value">SVHC вещества над праговете по REACH, опасни материали</div></div>
+          <div class="spec-cell"><div class="spec-label">Ремонтируемост</div><div class="spec-value">Индекс на ремонтируемост, наличие на резервни части, ръководства</div></div>
+        </div>
+        <div class="key-insight" style="border-color:#7f77dd;"><div class="key-insight-label" style="color:#7f77dd;">Стратегически извод</div><div class="key-insight-text">DPP не е бюрократично задължение — е конкурентно предимство. Марките, инвестирали в прозрачност преди дедлайна, влизат в 2027 с работеща инфраструктура, докато конкурентите им се паникьосват.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="layer-section" id="layer-03">
+  <div class="layer-header-bar" onclick="toggleLayer('layer-03')" style="border-left:3px solid #378add;">
+    <div class="layer-number">03</div>
+    <div class="layer-title">Digital Identity Layer</div>
+    <div class="layer-badge" style="background:rgba(55,138,221,.2);color:#85b7eb;border:1px solid rgba(55,138,221,.25);">Connected Experience</div>
+    <div class="layer-toggle">+</div>
+  </div>
+  <div class="layer-body">
+    <div class="layer-philosophy" style="border-color:#378add;color:#85b7eb;">Баркодът беше пасивен — само за четене, статичен, сляп. GS1 Digital Link превръща всеки код в активна, двупосочна точка за комуникация. Продуктът за първи път знае кога, откъде и от кого е консумиран.</div>
+    <div class="layer-body-grid">
+      <div>
+        <div class="layer-technical-lead">Техническа логика</div>
+        <div class="layer-desc">GS1 Digital Link е синтаксисният стандарт, превръщащ традиционния GS1 идентификатор в URI. Структурата: <code>https://id.gs1.org/01/{GTIN}/21/{SerialNo}</code>. BlueBite прилага resolver архитектура — всяко сканиране преминава през resolver, определящ дестинацията въз основа на контекст.</div>
+        <div class="specs-grid">
+          <div class="spec-cell"><div class="spec-label">EU алкохолна маркировка</div><div class="spec-value">В сила от <strong>декември 2023</strong> — QR с хранителна информация е задължителен</div></div>
+          <div class="spec-cell"><div class="spec-label">EU козметична регулация</div><div class="spec-value"><strong>2026</strong> — списък на съставките достъпен чрез QR</div></div>
+          <div class="spec-cell"><div class="spec-label">GS1 Sunrise 2027</div><div class="spec-value">Всички <strong>POS системи</strong> трябва да четат 2D кодове — 1D баркодът не е достатъчен</div></div>
+          <div class="spec-cell"><div class="spec-label">Фармация (FMD)</div><div class="spec-value">Сериализация и верификация в сила от 2019 — моделът вече работи, трябва да се надгради</div></div>
+        </div>
+        <div class="tech-pills"><span class="tech-pill">GS1 Digital Link</span><span class="tech-pill">BlueBite Resolver</span><span class="tech-pill">Dynamic URL</span><span class="tech-pill">Scan analytics</span><span class="tech-pill">Anti-counterfeit</span></div>
+      </div>
+      <div>
+        <div class="layer-technical-lead">Какво прави кода "жив"</div>
+        <div class="specs-grid">
+          <div class="spec-cell"><div class="spec-label">Consumer view</div><div class="spec-value">Рецепти, история на продукта, промоции. Актуализируемо без препечатване.</div></div>
+          <div class="spec-cell"><div class="spec-label">Retail / POS view</div><div class="spec-value">Цена, наличност, промоционален статус — синхронизирано с ERP в реално време.</div></div>
+          <div class="spec-cell"><div class="spec-label">Регулаторен view</div><div class="spec-value">Сертификати, декларации, DPP данни. Само за упълномощени читатели.</div></div>
+          <div class="spec-cell"><div class="spec-label">Brand analytics</div><div class="spec-value">Кога, откъде, колко пъти е сканирана всяка unit. Нов тип consumer intelligence.</div></div>
+        </div>
+        <div class="key-insight" style="border-color:#378add;"><div class="key-insight-label" style="color:#378add;">Стратегически извод</div><div class="key-insight-text">За първи път производителят не продава продукт и губи контакт с него. С GS1 Digital Link продуктът "се обажда" при всяко сканиране — фундаментална промяна в информационния баланс.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="layer-section" id="layer-02">
+  <div class="layer-header-bar" onclick="toggleLayer('layer-02')" style="border-left:3px solid #5da855;">
+    <div class="layer-number">02</div>
+    <div class="layer-title">Code Intelligence Layer</div>
+    <div class="layer-badge" style="background:rgba(93,168,85,.18);color:#97c459;border:1px solid rgba(93,168,85,.25);">Serialization Engine</div>
+    <div class="layer-toggle">+</div>
+  </div>
+  <div class="layer-body">
+    <div class="layer-philosophy" style="border-color:#5da855;color:#97c459;">Сериализацията е разликата между "вид продукт" и "конкретна единица". Без нея знаем, че сме продали 10 000 бутилки. Със сериализация знаем точно коя бутилка е на кой рафт, в кой магазин — и кога е отворена.</div>
+    <div class="layer-body-grid">
+      <div>
+        <div class="layer-technical-lead">Техническа логика</div>
+        <div class="layer-desc">CoLOS работи на ниво производствена линия и осигурява, че всяка опаковка получава уникален, невъзпроизводим идентификатор. Архитектурата следва GS1 Application Identifier структурата: GTIN + серийен номер + партида + срок на годност — кодирано в единен GS1 DataMatrix или QR код, четим от всяка GS1-съвместима система.</div>
+        <div class="specs-grid">
+          <div class="spec-cell"><div class="spec-label">Уникалност</div><div class="spec-value">Нулево дублиране дори при производствени прекъсвания или смяна на смени</div></div>
+          <div class="spec-cell"><div class="spec-label">Audit trail</div><div class="spec-value">Всеки код — timestamped с оператор, машина, партида и производствена линия</div></div>
+          <div class="spec-cell"><div class="spec-label">ERP интеграция</div><div class="spec-value">Двупосочна синхронизация с SAP, Navision в реално време</div></div>
+          <div class="spec-cell"><div class="spec-label">Batch management</div><div class="spec-value">От планиране на кодовете до отчитане на изразходваните единици</div></div>
+        </div>
+        <div class="tech-pills"><span class="tech-pill">CoLOS Enterprise</span><span class="tech-pill">GS1 DataMatrix</span><span class="tech-pill">GTIN + Serial No.</span><span class="tech-pill">SAP / Navision API</span><span class="tech-pill">Batch reconciliation</span></div>
+      </div>
+      <div>
+        <div class="layer-technical-lead">Приложни случаи</div>
+        <div class="specs-grid">
+          <div class="spec-cell"><div class="spec-label">Anti-counterfeit</div><div class="spec-value">Фалшификатът копира визията, но не сериализираните данни. Несъответствие = алерт.</div></div>
+          <div class="spec-cell"><div class="spec-label">Recall управление</div><div class="spec-value">Точна идентификация на засегнатите единици по партида и дистрибуционен канал.</div></div>
+          <div class="spec-cell"><div class="spec-label">Gray market защита</div><div class="spec-value">Проследяване на продукти, продадени извън оторизирани канали или зони.</div></div>
+          <div class="spec-cell"><div class="spec-label">Supply chain visibility</div><div class="spec-value">Знаеш не само какво е произведено, но и консумирано — по единица.</div></div>
+        </div>
+        <div class="key-insight" style="border-color:#5da855;"><div class="key-insight-label" style="color:#5da855;">Стратегически извод</div><div class="key-insight-text">CoLOS + BlueBite е комбинация, достъпна единствено за официален Markem-Imaje партньор. Свързва физическото производство директно с дигиталната идентичност — без middleware, без ръчна синхронизация.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="layer-section" id="layer-01">
+  <div class="layer-header-bar" onclick="toggleLayer('layer-01')" style="border-left:3px solid #888780;">
+    <div class="layer-number">01</div>
+    <div class="layer-title">Physical Execution Layer</div>
+    <div class="layer-badge" style="background:rgba(136,135,128,.15);color:#b4b2a9;border:1px solid rgba(136,135,128,.2);">The Foundation</div>
+    <div class="layer-toggle">+</div>
+  </div>
+  <div class="layer-body">
+    <div class="layer-philosophy" style="border-color:#888780;color:#b4b2a9;">Там където битовете стават молекули. Без физическия акт на вписване — без принтер, без верификация, без апликация — всичко отгоре е абстракция. Физическият слой е единственият, за чиято надеждност не може да се компромисира.</div>
+    <div class="layer-body-grid">
+      <div>
+        <div class="layer-technical-lead">Техническа логика</div>
+        <div class="layer-desc">Markem-Imaje CIJ, TIJ, лазерни и TTO принтери работят на скорости до 600 м/мин с print resolution, достатъчна за GS1-верифицируеми кодове при всякакви субстрати. Mettler-Toledo везни верифицират физическото тегло. INSTELMA апликатори поставят етикетите с точност ±0.5mm.</div>
+        <div class="specs-grid">
+          <div class="spec-cell"><div class="spec-label">Markem-Imaje</div><div class="spec-value">CIJ, лазерни, TIJ и TTO принтери. <strong>30+ години</strong> официален партньор.</div></div>
+          <div class="spec-cell"><div class="spec-label">Mettler-Toledo</div><div class="spec-value">Динамични везни, металдетектори, X-Ray системи, визуална инспекция.</div></div>
+          <div class="spec-cell"><div class="spec-label">INSTELMA</div><div class="spec-value">Произведено в България. Модулни машини. CE сертифицирани.</div></div>
+          <div class="spec-cell"><div class="spec-label">HERMA</div><div class="spec-value">Прецизни апликатори за специализирани формати. Фармацевтични стандарти.</div></div>
+        </div>
+        <div class="tech-pills"><span class="tech-pill">CIJ / TIJ / Laser / TTO</span><span class="tech-pill">Динамично претегляне</span><span class="tech-pill">X-Ray инспекция</span><span class="tech-pill">GS1 barcode verifier</span><span class="tech-pill">OEE мониторинг</span></div>
+      </div>
+      <div>
+        <div class="layer-technical-lead">Защо е стратегическият актив</div>
+        <div class="specs-grid">
+          <div class="spec-cell"><div class="spec-label">Инсталирана база</div><div class="spec-value"><strong>2500+</strong> машини · <strong>30</strong> години · <strong>1000+</strong> активни клиенти</div></div>
+          <div class="spec-cell"><div class="spec-label">Сервизна мрежа</div><div class="spec-value">24/7 поддръжка. Собствен склад. Превантивна поддръжка.</div></div>
+          <div class="spec-cell"><div class="spec-label">Вертикална интеграция</div><div class="spec-value">INSTELMA — собствено производство. Единственият регионален играч с пълен стек.</div></div>
+          <div class="spec-cell"><div class="spec-label">Switching cost</div><div class="spec-value">Смяната изисква подмяна на оборудване, преквалификация и спиране на производството.</div></div>
+        </div>
+        <div class="key-insight" style="border-color:#888780;"><div class="key-insight-label" style="color:#888780;">Стратегически извод</div><div class="key-insight-text">Без физическия слой горните три не съществуват. Комбинацията физически + дигитален стек е уникалната позиция на Стабил — единственият регионален играч с вертикална интеграция от принтер до DPP паспорт.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stack-overview">
+  <h2>Обзорна схема</h2>
+  <div class="stack-diagram">
+    <div class="stack-row" style="background:#1A1730;">
+      <div class="stack-num" style="color:#7f77dd;">04</div>
+      <div class="stack-name" style="color:#E8E6FF;">Compliance Layer</div>
+      <div class="stack-desc" style="color:rgba(232,230,255,.6);">DPP генериране, хостинг и верификация — EU Ecodesign регулация</div>
+      <div class="stack-owner" style="color:#7f77dd;">EU Regulatory</div>
+    </div>
+    <div class="stack-conn"><div class="stack-conn-dot" style="background:#534AB7;"></div></div>
+    <div class="stack-row" style="background:#0F1E30;">
+      <div class="stack-num" style="color:#378add;">03</div>
+      <div class="stack-name" style="color:#D6EAFF;">Digital Identity Layer</div>
+      <div class="stack-desc" style="color:rgba(214,234,255,.6);">GS1 Digital Link resolver, динамични URL-и, scan analytics, anti-counterfeit</div>
+      <div class="stack-owner" style="color:#378add;">BlueBite</div>
+    </div>
+    <div class="stack-conn"><div class="stack-conn-dot" style="background:#378add;"></div></div>
+    <div class="stack-row" style="background:#121C0A;">
+      <div class="stack-num" style="color:#5da855;">02</div>
+      <div class="stack-name" style="color:#D4EDAA;">Code Intelligence Layer</div>
+      <div class="stack-desc" style="color:rgba(212,237,170,.6);">Сериализация на ниво единица, batch management, ERP интеграция, audit trail</div>
+      <div class="stack-owner" style="color:#5da855;">CoLOS</div>
+    </div>
+    <div class="stack-conn"><div class="stack-conn-dot" style="background:#5da855;"></div></div>
+    <div class="stack-row" style="background:#1A1A18;">
+      <div class="stack-num" style="color:#888780;">01</div>
+      <div class="stack-name" style="color:#f5f4f0;">Physical Execution Layer</div>
+      <div class="stack-desc" style="color:rgba(245,244,240,.55);">Индустриален печат, продуктова инспекция, динамично претегляне, апликация</div>
+      <div class="stack-owner" style="color:#888780;">Стабил Инженеринг</div>
+    </div>
+  </div>
+  <div class="flow-meta">
+    <span>↑ физически продукт пътува нагоре</span>
+    <div class="flow-meta-line"></div>
+    <span>данни пътуват надолу ↓</span>
+  </div>
+</div>
+
+<div class="closing">
+  <h2>От продукт<br>към <em>идентичност.</em></h2>
+  <p>Епохата, в която производителят продава продукт и губи контакт с него, приключва. EU регулацията, GS1 стандартите и потребителското очакване конвергират към едно.</p>
+  <p><strong>Продуктът е гражданин на дигиталното пространство от момента, в който напусне производствената линия.</strong> Четирислойният модел е инфраструктурата — и Стабил Инженеринг е единственият регионален партньор, предлагащ всичките четири слоя интегрирано.</p>
+</div>
+
+<div class="doc-footer">
+  <div>Стабил Инженеринг · Product <span>DNA</span> Framework · v1.0</div>
+  <div>Пловдив · stabilengineering.com</div>
+</div>
+
+<script>
+function toggleLayer(id) {
+  var s = document.getElementById(id);
+  var open = s.classList.contains('open');
+  document.querySelectorAll('.layer-section').forEach(function(x){ x.classList.remove('open'); });
+  if (!open) s.classList.add('open');
+}
+document.getElementById('layer-04').classList.add('open');
+</script>
+</body>
+</html>
