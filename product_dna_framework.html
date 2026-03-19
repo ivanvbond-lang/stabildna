@@ -8,15 +8,15 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:   #0b0f1e;
-  --bg2:  #0f1428;
-  --bg3:  #151b35;
-  --bg4:  #1c2240;
+  --bg:   #141929;
+  --bg2:  #192036;
+  --bg3:  #1f2840;
+  --bg4:  #263050;
   --ink:  #eceaf4;
-  --ink2: #9b99b0;
-  --ink3: #5a5870;
-  --rule: rgba(236,234,244,.07);
-  --rule2:rgba(236,234,244,.12);
+  --ink2: #a0a0bc;
+  --ink3: #5e5e7a;
+  --rule: rgba(236,234,244,.08);
+  --rule2:rgba(236,234,244,.14);
   --accent:#eb3e17;
   --c-purple:#7f77dd;
   --c-blue:  #378add;
@@ -29,7 +29,23 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
-body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(236,234,244,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0;}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    radial-gradient(rgba(236,234,244,.07) 1px, transparent 1px),
+    linear-gradient(rgba(55,138,221,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(55,138,221,.035) 1px, transparent 1px);
+  background-size:32px 32px, 96px 96px, 96px 96px;
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(29,91,168,.16) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(235,62,23,.09) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 50% at 45% 45%, rgba(127,119,221,.07) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
+}
 
 /* MASTHEAD */
 .masthead{position:relative;z-index:1;border-bottom:1px solid var(--rule2);padding:1.25rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;background:rgba(11,15,30,.9);backdrop-filter:blur(8px);}
@@ -133,6 +149,47 @@ code{background:var(--bg4);padding:2px 7px;border-radius:4px;font-family:var(--m
 </style>
 </head>
 <body>
+
+<!-- decorative background canvas -->
+<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;">
+  <!-- large diamond top-right — echoes Stabil logo -->
+  <g transform="translate(920,140)" opacity="0.09">
+    <polygon points="0,-100 87,0 0,100 -87,0" fill="none" stroke="#378add" stroke-width="1"/>
+    <polygon points="0,-66 57,0 0,66 -57,0" fill="none" stroke="#378add" stroke-width="0.6"/>
+    <polygon points="0,-33 29,0 0,33 -29,0" fill="rgba(55,138,221,0.18)" stroke="#378add" stroke-width="0.5"/>
+  </g>
+  <!-- accent diamond bottom-left -->
+  <g transform="translate(80,680)" opacity="0.07">
+    <polygon points="0,-70 61,0 0,70 -61,0" fill="none" stroke="#eb3e17" stroke-width="1"/>
+    <polygon points="0,-42 36,0 0,42 -36,0" fill="rgba(235,62,23,0.15)" stroke="#eb3e17" stroke-width="0.6"/>
+  </g>
+  <!-- small purple diamond mid-left -->
+  <g transform="translate(50,350)" opacity="0.07">
+    <polygon points="0,-26 22,0 0,26 -22,0" fill="none" stroke="#7f77dd" stroke-width="0.8"/>
+  </g>
+  <!-- green micro diamond -->
+  <g transform="translate(780,520)" opacity="0.06">
+    <polygon points="0,-20 17,0 0,20 -17,0" fill="none" stroke="#5da855" stroke-width="0.7"/>
+  </g>
+  <!-- subtle grid cross-hairs -->
+  <line x1="0" y1="33.33%" x2="100%" y2="33.33%" stroke="rgba(55,138,221,0.035)" stroke-width="1"/>
+  <line x1="0" y1="66.66%" x2="100%" y2="66.66%" stroke="rgba(55,138,221,0.035)" stroke-width="1"/>
+  <line x1="25%" y1="0" x2="25%" y2="100%" stroke="rgba(127,119,221,0.025)" stroke-width="1"/>
+  <line x1="75%" y1="0" x2="75%" y2="100%" stroke="rgba(127,119,221,0.025)" stroke-width="1"/>
+  <!-- DNA double helix right edge -->
+  <path d="M 960 150 Q 980 220 960 290 Q 940 360 960 430 Q 980 500 960 570 Q 940 640 960 710" fill="none" stroke="rgba(235,62,23,0.1)" stroke-width="1.5" stroke-dasharray="5 7"/>
+  <path d="M 990 150 Q 970 220 990 290 Q 1010 360 990 430 Q 970 500 990 570 Q 1010 640 990 710" fill="none" stroke="rgba(55,138,221,0.1)" stroke-width="1.5" stroke-dasharray="5 7"/>
+  <line x1="960" y1="190" x2="990" y2="190" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="955" y1="230" x2="995" y2="230" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="960" y1="270" x2="990" y2="270" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="955" y1="310" x2="995" y2="310" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="960" y1="350" x2="990" y2="350" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="955" y1="390" x2="995" y2="390" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="960" y1="430" x2="990" y2="430" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="955" y1="470" x2="995" y2="470" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="960" y1="510" x2="990" y2="510" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+  <line x1="955" y1="550" x2="995" y2="550" stroke="rgba(236,234,244,0.07)" stroke-width="1"/>
+</svg>
 
 <div class="masthead">
   <div class="masthead-left">
